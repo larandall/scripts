@@ -8,7 +8,18 @@ while true; do
     read -p "Do you want to install Zsh config? " yn
     case $yn in
         [Nn]* ) break;; 
-        [Yy]* ) if test -e $HOME/.zshrc || test -L $HOME/.zshrc
+	[Yy]* )	if test -e $HOME/.oh-my-zsh
+                then echo "Oh my ZSH already installed"
+                else
+                    if which zsh
+		    then
+                        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+                        echo "Installed Oh-My-ZSH"
+                        else
+                            "Warning: ZSH not installed: please install and try again"
+		    fi
+		fi 
+                if test -e $HOME/.zshrc || test -L $HOME/.zshrc
                 then
                     while true; do
                         read -p "$HOME/.zshrc already exists. Replace? " yn2
@@ -31,18 +42,8 @@ while true; do
                 else
                     ln -s $SOURCED/.zshrc $HOME/.zshrc
                     echo "Created link to $HOME/.zshrc."
-                fi
-                if test -e $HOME/.oh-my-zsh
-                then echo "Oh my ZSH already installed"
-                else
-                    if which zsh
-                    then
-                        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-                        echo "Installed Oh-My-ZSH"
-                        else
-                            "Warning: ZSH not installed: please install and try again"
-                        fi
-                fi; break;;
+                fi;
+		break;;
         * ) echo "Please answer yes or no";;
     esac
 done

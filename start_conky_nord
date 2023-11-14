@@ -1,0 +1,6 @@
+#!/bin/bash
+
+conky -c /home/avery/.config/conky/conky1.10_shortcuts_nord &&
+conky -c /home/avery/.config/conky/conky_nord &&
+
+exit 0
